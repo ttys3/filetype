@@ -30,10 +30,14 @@ func Midi(buf []byte) bool {
 		buf[2] == 0x68 && buf[3] == 0x64
 }
 
+// ref https://github.com/mirror/jdownloader/blob/c174969108dcc71df6d7b77f5b649efbca1a5e7a/src/org/jdownloader/extensions/extraction/mime.type#L13
+// https://github.com/h2non/filetype/issues/10#issuecomment-232439340
 func Mp3(buf []byte) bool {
 	return len(buf) > 2 &&
 		((buf[0] == 0x49 && buf[1] == 0x44 && buf[2] == 0x33) ||
-			(buf[0] == 0xFF && buf[1] == 0xfb))
+			(buf[0] == 0xFF && buf[1] == 0xfb) ||
+			(buf[0] == 0xFF && buf[1] == 0xfa) ||
+			(buf[0] == 0xFF && buf[1] == 0xf3))
 }
 
 func M4a(buf []byte) bool {
